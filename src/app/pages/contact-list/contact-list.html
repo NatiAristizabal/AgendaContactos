@@ -1,0 +1,22 @@
+<h1>Mis Contactos</h1>
+
+@for (contacto of contactsService.contactList; track $index){
+    <div>
+        <a [routerLink]="['/contacts', contacto.id]">
+            <span>
+                <img [src]="'img/contact' + contacto.id + '.jpeg'" alt="Foto de {{contacto.nombre}}">
+            </span>
+            <span>
+                Nombre: {{contacto.nombre}}
+            </span>
+            <span>
+                Telefono: {{contacto.numeroTelefono}}
+            </span>
+            <span>
+                Diireccion: {{contacto.direccion}}
+            </span>
+        </a>
+    </div>  
+}
+
+<button (click)="contactsService.agregarAlumno()" [disabled]="contactsService.contactList.length>5">Agregar contacto</button>

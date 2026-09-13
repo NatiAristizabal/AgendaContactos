@@ -1,0 +1,87 @@
+$primary-color: #2563eb;
+$bg-color: #f8fafc;
+$text-color: #1f2937;
+
+h1 {
+  text-align: center;
+  color: $text-color;
+  font-size: 2rem;
+  margin-top: 2rem;
+  margin-bottom: 1.5rem;
+}
+
+//estilos aplicados a cada tarjeta dentro del bucle @for
+div {
+  max-width: 600px;
+  margin: 0.75rem auto;
+
+  a {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    padding: 1.25rem;
+    background-color: white;
+    border: 1px solid #e5e7eb;
+    border-radius: 10px;
+    text-decoration: none;
+    color: $text-color;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.06);
+      border-color: $primary-color;
+    }
+
+    span {
+      font-size: 0.95rem;
+
+      //(Foto del contacto)
+      &:first-child {
+        display: flex;
+        align-items: center;
+        margin-bottom: 0.25rem;
+
+        img {
+          width: 45px;
+          height: 45px;
+          border-radius: 50%;
+          background-color: #e2e8f0;
+          object-fit: cover;
+        }
+      }
+
+      //nombre del contacto
+      &:nth-child(2) {
+        font-weight: 600;
+        font-size: 1.1rem;
+        color: $primary-color;
+      }
+    }
+  }
+}
+
+
+button {
+  display: block;
+  margin: 2rem auto;
+  padding: 0.75rem 1.5rem;
+  background-color: $primary-color;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease, opacity 0.2s ease;
+
+  &:hover:not(:disabled) {
+    background-color: darken($primary-color, 10%);
+  }
+
+  &:disabled {
+    background-color: #9ca3af;
+    cursor: not-allowed;
+    opacity: 0.7;
+  }
+}

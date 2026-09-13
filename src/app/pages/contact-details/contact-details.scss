@@ -1,0 +1,41 @@
+$primary-color: #2563eb;
+$bg-color: #f3f4f6;
+$text-color: #1f2937;
+
+section, main, div {
+  max-width: 500px;
+  margin: 3rem auto;
+  padding: 2rem;
+  background-color: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  border: 1px solid #e5e7eb;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+
+  h1 {
+    font-size: 1.4rem;
+    color: $primary-color;
+    margin: 0 0 0.5rem 0;
+
+    &:first-of-type {
+      font-size: 0.9rem;
+      color: #6b7280;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+  }
+
+  p {
+    font-size: 1rem;
+    color: $text-color;
+    margin: 0;
+    padding: 0.5rem 0;
+    border-bottom: 1px dashed #e5e7eb;
+
+    &:last-of-type {
+      border-bottom: none;
+    }
+  }
+}

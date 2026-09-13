@@ -1,28 +1,98 @@
-$gap: 10px;
+$primary-color: #2563eb;
+$bg-color: #f3f4f6;
+$text-color: #1f2937;
+$gap: 12px;
 
-section{
-  margin: auto;
-  text-align: center;
-  height: 90vh;
+section {
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
+  align-items: center;
   justify-content: center;
-}
+  background-color: $bg-color;
+  padding: 1rem;
 
-form{
-  display: flex;
-  flex-direction: column;
-  gap: $gap;
-  button{
-    margin: auto;
+  h1 {
+    font-size: 1.8rem;
+    color: $primary-color;
+    margin-bottom: 0.25rem;
+  }
+
+  h3 {
+    font-size: 1.25rem;
+    color: lighten($text-color, 20%);
+    margin-bottom: 1.5rem;
   }
 }
 
-form>div{
-  max-width: 400px;
-  margin: auto;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: $gap; 
-  text-align: right;
+form {
+  background-color: white;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+  width: 100%;
+  max-width: 420px;
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+
+  div {
+    display: grid;
+    grid-template-columns: 80px 1fr;
+    align-items: center;
+    gap: $gap;
+
+    label {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: $text-color;
+      text-align: right;
+    }
+
+    input {
+      padding: 0.6rem;
+      border: 1px solid #d1d5db;
+      border-radius: 6px;
+      font-size: 0.95rem;
+      outline: none;
+      transition: border-color 0.2s;
+
+      &:focus {
+        border-color: $primary-color;
+      }
+    }
+  }
+
+  button {
+    background-color: $primary-color;
+    color: white;
+    border: none;
+    padding: 0.75rem;
+    border-radius: 6px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+
+    &:hover {
+      background-color: darken($primary-color, 10%);
+    }
+  }
+
+  p {
+    font-size: 0.85rem;
+    color: #6b7280;
+    text-align: center;
+    margin: 0;
+
+    a {
+      color: $primary-color;
+      text-decoration: none;
+      font-weight: 600;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
 }
