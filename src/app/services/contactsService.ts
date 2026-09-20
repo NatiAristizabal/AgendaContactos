@@ -46,22 +46,23 @@ contactList:Contact[] = [
     }
   ]
 
-
- agregarAlumno(){
-    this.contactList.push({
-      id: '2',
-      nombre: '44567',
-      apellido: '4567',
-      numeroTelefono: '4567'
-    })
-    console.log(this.contactList)
+agregarContacto(contacto: Contact) {
+  if (!contacto.id) {
+    contacto.id = (this.contactList.length + 1).toString();
   }
 
-  /// Busca un contacto desde un ID
-getContactById(id:string){
-  const contactoEncontrado = this.contactList.find(contact => contact.id === id);
-  return contactoEncontrado;
+  this.contactList.push(contacto);
+  return contacto.id;
 }
 
+  
+getContactById(id:string){
+  const contactoEncontrado = this.contactList.find(contact => contact.id === id);
+  return contactoEncontrado; /// Busca un contacto desde un ID
+}
+
+deleteContact(id:string){
+  this.contactList = this.contactList.filter(c => c.id !== id);
+}
 
 }

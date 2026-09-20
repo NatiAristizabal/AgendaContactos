@@ -1,4 +1,28 @@
-<h1>ID actual: {{id()}}</h1>
-<h1>Nombre y Apellido contacto {{contacto?.nombre}}</h1>
-<p>Telefono</p> 
-<p>Dirección</p>
+<header>
+  <h1>Detalle del contacto</h1>
+  <button [routerLink]="['/contacts']">Volver</button>
+</header>
+
+<main>
+  @if (contacto()) {
+    <div class="contacto-detail-card">
+      <div class="avatar-container">
+        <img [src]="'img/contact' + contacto()?.id + '.jpeg'" alt="Foto de {{contacto()?.nombre}}" onerror="this.src='img/person.png'">
+      </div>
+
+      <div class="info-group">
+        <h2>{{ contacto()?.nombre }} {{ contacto()?.apellido }}</h2>
+        <p class="telefono">
+          <strong>Teléfono:</strong> {{ contacto()?.numeroTelefono }}
+        </p>
+      </div>
+
+      <div class="actions">
+        <button [routerLink]="['/contacts', contacto()?.id, 'edit']">Editar</button>
+        <button (click)="eliminarContacto(contacto()!.id)">Eliminar</button>
+      </div>
+    </div>
+  } @else {
+    <p class="not-found">Contacto no encontrado</p>
+  }
+</main>

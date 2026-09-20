@@ -1,86 +1,170 @@
-$primary-color: #2563eb;
-$bg-color: #f8fafc;
-$text-color: #1f2937;
+$primary-color: #6366f1;       
+$bg-color: #f0fdf4;            
+$header-bg: #e0e7ff;          
+$text-color: #1e293b;          
+$card-bg: #ffffff;
+$delete-color: #f87171;        
 
-h1 {
-  text-align: center;
-  color: $text-color;
-  font-size: 2rem;
-  margin-top: 2rem;
-  margin-bottom: 1.5rem;
+// Fondo de la página
+:host {
+  display: block;
+  min-height: 100vh;
+  background-color: $bg-color;
 }
 
-//estilos aplicados a cada tarjeta dentro del bucle @for
-div {
-  max-width: 600px;
-  margin: 0.75rem auto;
 
-  a {
-    display: flex;
-    flex-direction: column;
-    gap: 0.4rem;
-    padding: 1.25rem;
-    background-color: white;
-    border: 1px solid #e5e7eb;
-    border-radius: 10px;
-    text-decoration: none;
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  background-color: $header-bg;
+  border-bottom: 2rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+
+  h1 {
+    margin: 0;
     color: $text-color;
-    transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+    font-size: 1.5rem;
+    font-weight: 700;
+  }
+
+  // Botón "Cerrar sesión" en la esquina superior derecha
+  button {
+    margin: 0;
+    padding: 0.5rem 1.1rem;
+    font-size: 0.875rem;
+    background-color: white;
+    color: $primary-color;
+    border: 1px solid $primary-color;
 
     &:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.06);
-      border-color: $primary-color;
+      background-color: $primary-color;
+      color: white;
     }
+  }
+}
+
+main {
+  padding: 1.5rem 1rem;
+}
+
+// Tarjeta de cada contacto
+.contacto.card {
+  max-width: 600px;
+  margin: 0.85rem auto;
+  padding: 1rem 1.25rem;
+  background-color: $card-bg;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(99, 102, 241, 0.08);
+    border-color: $primary-color;
+  }
+
+  // Enlace con datos del contacto
+  a {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex-grow: 1;
+    text-decoration: none;
+    color: $text-color;
 
     span {
       font-size: 0.95rem;
 
-      //(Foto del contacto)
+      // Foto
       &:first-child {
         display: flex;
         align-items: center;
-        margin-bottom: 0.25rem;
 
         img {
-          width: 45px;
-          height: 45px;
+          width: 48px;
+          height: 48px;
           border-radius: 50%;
-          background-color: #e2e8f0;
+          background-color: #f1f5f9;
           object-fit: cover;
+          border: 2px solid $header-bg;
         }
       }
 
-      //nombre del contacto
+      // Nombre del contacto
       &:nth-child(2) {
         font-weight: 600;
-        font-size: 1.1rem;
-        color: $primary-color;
+        font-size: 1.05rem;
+        color: $text-color;
+      }
+
+      // Teléfono
+      &:nth-child(3) {
+        color: #64748b;
+        font-size: 0.9rem;
+      }
+    }
+  }
+
+  // Botones de Editar y Eliminar
+  div {
+    display: flex;
+    gap: 0.5rem;
+    margin: 0;
+
+    button {
+      margin: 0;
+      padding: 0.45rem 0.9rem;
+      font-size: 0.85rem;
+      border-radius: 6px;
+
+      // Botón Editar
+      &:first-child {
+        background-color: #e0f2fe;
+        color: #0369a1;
+
+        &:hover {
+          background-color: #bae6fd;
+        }
+      }
+
+      // Botón Eliminar
+      &:last-child {
+        background-color: #fee2e2;
+        color: #dc2626;
+
+        &:hover {
+          background-color: #fca5a5;
+        }
       }
     }
   }
 }
 
-
+// Botón global
 button {
   display: block;
-  margin: 2rem auto;
-  padding: 0.75rem 1.5rem;
+  padding: 0.6rem 1.2rem;
   background-color: $primary-color;
   color: white;
   border: none;
   border-radius: 8px;
-  font-size: 1rem;
+  font-size: 0.95rem;
   font-weight: 600;
   cursor: pointer;
-  transition: background-color 0.2s ease, opacity 0.2s ease;
+  transition: all 0.2s ease;
 
   &:hover:not(:disabled) {
-    background-color: darken($primary-color, 10%);
+    background-color: darken($primary-color, 8%);
   }
 
   &:disabled {
-    background-color: #9ca3af;
+    background-color: #cbd5e1;
     cursor: not-allowed;
     opacity: 0.7;
   }

@@ -1,0 +1,12 @@
+<form (submit)="onSubmit($event)">
+    <label for="nombre">Nombre</label>
+    <input type="text" [formField]="formCreateContact.nombre" id="nombre" />
+
+    <label for="apellido">Apellido</label>
+    <input type="text" [formField]="formCreateContact.apellido" id="apellido"/>
+
+    <label for="telefono">Numero de telefono</label>
+    <input type="text" [formField]="formCreateContact.numeroTelefono" id="telefono" />
+
+    <button>{{ contactId() ? 'Guardar cambios' : 'Agregar contacto' }}</button>
+</form>
