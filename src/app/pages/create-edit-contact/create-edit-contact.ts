@@ -1,9 +1,10 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, effect, inject, input, OnInit, signal } from '@angular/core';
 import { Contact } from '../../interfaces/contact';
 import { form, FormField } from '@angular/forms/signals';
 import { ContactsService } from '../../services/contactsService';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
+import { Auth } from '../../services/auth';
 
 @Component({
   imports: [FormField],
@@ -11,80 +12,46 @@ import Swal from 'sweetalert2';
   styleUrl: './create-edit-contact.scss',
   templateUrl: './create-edit-contact.html',
 })
-export class CreateEditContact {
-
-  contactsService = inject(ContactsService);
-  router = inject(Router);
-  route = inject(ActivatedRoute);
-
-  contactId = signal<string | null>(null);
-
-  newContactModel = signal<Contact>({
-    id: '',
-    nombre: '',
-    apellido: '',
-    numeroTelefono: ''
-  });
-
-  formCreateContact = form(this.newContactModel);
-
-  constructor() {
-    const idParam = this.route.snapshot.paramMap.get('id');
-    if (idParam) {
-      this.contactId.set(idParam);
+export class CreateEditContact implements OnInit{
+  ngOnInit(): void {
+    if(this.id()){
+      const contacto = this.contactsService.getContactById(this.id()!);
       
-      const contactoExistente = this.contactsService.contactList.find(
-        (c) => c.id.toString() === idParam
-      );
-
-      if (contactoExistente) {
-        this.newContactModel.set({ ...contactoExistente });
-      }
     }
   }
 
-onSubmit(event: Event) {
-  event.preventDefault();
+  authService = inject(Auth);
+  contactsService = inject(ContactsService);
+  router = inject(Router)
 
-  if (this.contactId()) {
-    // MODO EDICIÓN
-    const index = this.contactsService.contactList.findIndex(
-      (c) => c.id.toString() === this.contactId()
-    );
+  newContactModel = signal<Contact>({
+    id: 0,
+    firstName: '',
+    lastName: '',
+    number: '',
+    isFavorite: false,
+    groupIds: []
+  });
 
-    if (index !== -1) {
-      this.contactsService.contactList[index] = { ...this.newContactModel() };
-    }
+  id = input<number>();
 
-    Swal.mixin({
-      toast: true,
-      position: "top-end",
-      showConfirmButton: false,
-      timer: 2000,
-      timerProgressBar: false,
-      didOpen: (toast) => {
-        toast.onmouseenter = Swal.stopTimer;
-        toast.onmouseleave = Swal.resumeTimer;
-      }
-    }).fire({
-      icon: "success",
-      title: "Contacto actualizado"
-    });
 
-    this.router.navigate(['/contacts']); // Te redirige a la lista
-  } else {
-    // MODO CREACIÓN
-    // Si tu servicio agregarContacto no le asigna id, le generamos uno basado en la fecha o longitud
-    const nuevoContacto = {
-      ...this.newContactModel(),
-      id: Date.now().toString() // Genera un ID único temporal
-    };
+  formCreateContact = form(this.newContactModel);
 
-    if (this.contactsService.agregarContacto) {
-      this.contactsService.agregarContacto(nuevoContacto);
+  onSubmit(event: Event) {
+    event.preventDefault();
+
+    //Editar
+    if(this.id()){
+      this.editarContacto()
     } else {
-      this.contactsService.contactList.push(nuevoContacto);
+      this.crearContacto()
     }
+    
+  }
+
+  crearContacto(){
+    const idContactoCreado = this.contactsService.agregarContacto(this.newContactModel());
 
     Swal.mixin({
       toast: true,
@@ -101,7 +68,28 @@ onSubmit(event: Event) {
       title: "Contacto creado"
     });
 
-    this.router.navigate(['/contacts']); 
+    this.router.navigate(['/contacts',idContactoCreado])
   }
-}
+
+  editarContacto(){
+    this.contactsService.editContact(this.newContactModel())
+
+    Swal.mixin({
+      toast: true,
+      position: "top-end",
+      showConfirmButton: false,
+      timer: 2000,
+      timerProgressBar: false,
+      didOpen: (toast) => {
+        toast.onmouseenter = Swal.stopTimer;
+        toast.onmouseleave = Swal.resumeTimer;
+      }
+    }).fire({
+      icon: "success",
+      title: "Contacto editado"
+    });
+
+    this.router.navigate(['/contacts',this.newContactModel().id])
+  }
+
 }

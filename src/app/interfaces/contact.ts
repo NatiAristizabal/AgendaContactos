@@ -1,9 +1,14 @@
 export interface Contact {
-    id: string
-    nombre: string
-    apellido: string
-    numeroTelefono: string
-    direccion?: string
+    id: number
+    firstName: string
+    lastName: string
+    number?: string
+    address?: string
     email?: string
-    imgUrl?: string
+    image?: string
+    company?: string
+    description?: string
+    isFavorite: boolean
+    groupIds: []
+
 }

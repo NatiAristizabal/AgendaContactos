@@ -1,28 +1,27 @@
 <header>
-  <h1>Detalle del contacto</h1>
-  <button [routerLink]="['/contacts']">Volver</button>
+  <div>
+    <a class="button" routerLink="/contacts">⬅</a>
+    <h1>{{contacto?.firstName}}</h1>
+  </div>
+  <button>Cerrar sesión</button>
 </header>
-
-<main>
-  @if (contacto()) {
-    <div class="contacto-detail-card">
-      <div class="avatar-container">
-        <img [src]="'img/contact' + contacto()?.id + '.jpeg'" alt="Foto de {{contacto()?.nombre}}" onerror="this.src='img/person.png'">
-      </div>
-
-      <div class="info-group">
-        <h2>{{ contacto()?.nombre }} {{ contacto()?.apellido }}</h2>
-        <p class="telefono">
-          <strong>Teléfono:</strong> {{ contacto()?.numeroTelefono }}
-        </p>
-      </div>
-
-      <div class="actions">
-        <button [routerLink]="['/contacts', contacto()?.id, 'edit']">Editar</button>
-        <button (click)="eliminarContacto(contacto()!.id)">Eliminar</button>
-      </div>
+<main class="card">
+  <div>
+    <p>Telefono</p>
+    <p>{{contacto?.number}}</p>
+  </div>
+  <div>
+    <p>Email</p>
+    <p>{{contacto?.email}}</p>
+  </div>
+  <div>
+    <p>Dirección</p>
+    <p>{{contacto?.address}}</p>
+  </div>
+  @if(contacto){
+    <div>
+      <a class="button" [routerLink]="['/contacts',contacto.id,'edit']">Editar</a>
+      <button (click)="eliminarContacto(contacto.id)">Eliminar</button>
     </div>
-  } @else {
-    <p class="not-found">Contacto no encontrado</p>
   }
 </main>

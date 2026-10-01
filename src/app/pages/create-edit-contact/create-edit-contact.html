@@ -1,12 +1,23 @@
-<form (submit)="onSubmit($event)">
-    <label for="nombre">Nombre</label>
-    <input type="text" [formField]="formCreateContact.nombre" id="nombre" />
-
-    <label for="apellido">Apellido</label>
-    <input type="text" [formField]="formCreateContact.apellido" id="apellido"/>
-
-    <label for="telefono">Numero de telefono</label>
-    <input type="text" [formField]="formCreateContact.numeroTelefono" id="telefono" />
-
-    <button>{{ contactId() ? 'Guardar cambios' : 'Agregar contacto' }}</button>
-</form>
+<header>
+  <h1>Mis contactos</h1>
+  <button (click)="authService.logout()">Cerrar sesión</button>
+</header>
+<main>
+    <div class="card">  
+    <form (submit)="onSubmit($event)">
+        <div>
+            <label for="nombre">Nombre</label>
+            <input type="text" [formField]="formCreateContact.firstName" id="nombre" />
+        </div>
+        <div>
+            <label for="apellido">Apellido</label>
+            <input type="text" [formField]="formCreateContact.lastName" id="apellido"/>
+        </div>
+        <div>
+            <label for="telefono">Numero de telefono</label>
+            <input type="text" [formField]="formCreateContact.number!" id="telefono" />
+        </div>
+            <button>{{id() ? 'Editar contacto' : 'Agregar contacto'}}</button>
+    </form>
+    </div>
+</main>
