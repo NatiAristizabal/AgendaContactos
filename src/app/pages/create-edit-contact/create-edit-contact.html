@@ -3,21 +3,27 @@
   <button (click)="authService.logout()">Cerrar sesión</button>
 </header>
 <main>
-    <div class="card">  
+  <div class="card">
     <form (submit)="onSubmit($event)">
-        <div>
-            <label for="nombre">Nombre</label>
-            <input type="text" [formField]="formCreateContact.firstName" id="nombre" />
-        </div>
-        <div>
-            <label for="apellido">Apellido</label>
-            <input type="text" [formField]="formCreateContact.lastName" id="apellido"/>
-        </div>
-        <div>
-            <label for="telefono">Numero de telefono</label>
-            <input type="text" [formField]="formCreateContact.number!" id="telefono" />
-        </div>
-            <button>{{id() ? 'Editar contacto' : 'Agregar contacto'}}</button>
+      <div>
+        <label>
+          Nombre
+          <input type="text" [formField]="formCreateContact.firstName" />
+        </label>
+      </div>
+      <div>
+        <label>
+          Apellido
+          <input type="text" [formField]="formCreateContact.lastName" />
+        </label>
+      </div>
+      <div>
+        <label>
+          Número de teléfono
+          <input type="text" [formField]="formCreateContact.number!" />
+        </label>
+      </div>
+      <button type="submit">{{ id() ? 'Editar contacto' : 'Agregar contacto' }}</button>
     </form>
-    </div>
+  </div>
 </main>

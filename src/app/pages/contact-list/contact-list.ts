@@ -1,6 +1,7 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { RouterLink } from "@angular/router";
 import { ContactsService } from '../../services/contactsService';
+import { Contact } from '../../interfaces/contact';
 import Swal from 'sweetalert2'
 import { Auth } from '../../services/auth';
 
@@ -11,15 +12,21 @@ import { Auth } from '../../services/auth';
   templateUrl: './contact-list.html',
 })
 export class ContactList implements OnInit {
-  
+
   contactsService = inject(ContactsService);
   authService = inject(Auth);
 
   ngOnInit(): void {
     this.contactsService.getContacts()
   }
-  
-  eliminarContacto(id:number){
+
+  iniciales(contacto: Contact): string {
+    const nombre = contacto.firstName?.charAt(0) ?? '';
+    const apellido = contacto.lastName?.charAt(0) ?? '';
+    return (nombre + apellido).toUpperCase();
+  }
+
+  eliminarContacto(id: number) {
     this.contactsService.deleteContact(id);
     Swal.mixin({
       toast: true,

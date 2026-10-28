@@ -13,10 +13,12 @@ import { Auth } from '../../services/auth';
   templateUrl: './create-edit-contact.html',
 })
 export class CreateEditContact implements OnInit{
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
     if(this.id()){
-      const contacto = this.contactsService.getContactById(this.id()!);
-      
+      const contacto = await this.contactsService.getContactById(this.id()!);
+      if(contacto) {
+        this.newContactModel.set(contacto)
+      }
     }
   }
 
@@ -35,13 +37,13 @@ export class CreateEditContact implements OnInit{
 
   id = input<number>();
 
-
+  
   formCreateContact = form(this.newContactModel);
 
   onSubmit(event: Event) {
     event.preventDefault();
 
-    //Editar
+    
     if(this.id()){
       this.editarContacto()
     } else {

@@ -1,27 +1,31 @@
 <header>
-  <div>
+  <div class="titulo">
     <a class="button" routerLink="/contacts">⬅</a>
-    <h1>{{contacto?.firstName}}</h1>
+    <h1>{{ contacto()?.firstName }} {{ contacto()?.lastName }}</h1>
   </div>
-  <button>Cerrar sesión</button>
+  <button (click)="authService.logout()">Cerrar sesión</button>
 </header>
-<main class="card">
-  <div>
-    <p>Telefono</p>
-    <p>{{contacto?.number}}</p>
-  </div>
-  <div>
-    <p>Email</p>
-    <p>{{contacto?.email}}</p>
-  </div>
-  <div>
-    <p>Dirección</p>
-    <p>{{contacto?.address}}</p>
-  </div>
-  @if(contacto){
-    <div>
-      <a class="button" [routerLink]="['/contacts',contacto.id,'edit']">Editar</a>
-      <button (click)="eliminarContacto(contacto.id)">Eliminar</button>
+
+<main>
+  <section class="card">
+    <div class="dato">
+      <span class="etiqueta">Teléfono</span>
+      <p>{{ contacto()?.number }}</p>
     </div>
-  }
+    <div class="dato">
+      <span class="etiqueta">Email</span>
+      <p>{{ contacto()?.email }}</p>
+    </div>
+    <div class="dato">
+      <span class="etiqueta">Dirección</span>
+      <p>{{ contacto()?.address }}</p>
+    </div>
+
+    @if (contacto()) {
+      <div class="acciones">
+        <a class="button editar" [routerLink]="['/contacts', contacto()!.id, 'edit']">Editar</a>
+        <button class="eliminar" (click)="eliminarContacto(contacto()!.id)">Eliminar</button>
+      </div>
+    }
+  </section>
 </main>

@@ -1,19 +1,30 @@
 <section>
-    <div class="card chico">
+  <div class="card chico">
+    <h1>Agenda de contactos</h1>
+    <h3>Registrarse</h3>
+    <form (submit)="register($event)">
+      <div>
+        <label for="firstName">Primer Nombre</label>
+        <input type="text" id="firstName" [formField]="formRegister.firstName">
 
-        <h1>Agenda de contactos</h1>
-        <h3>Iniciar sesión</h3>
-        <form>
-            <div>
-                <label for="">Email</label>
-                <input type="email" name="" id="">
-                <label for="">Password</label>
-                <input type="password" name="" id="">
-                <label for="">Repetir password</label>
-                <input type="password2" name="" id="">
-            </div>
-            <button>Registrarse</button>
-            <p>¿Ya tenés cuenta? <a routerLink="/login">Inicia sesión</a></p>
-        </form>
-    </div>
+        <label for="lastName">Apellido</label>
+        <input type="text" id="lastName" [formField]="formRegister.lastName">
+
+        <label for="email">Email</label>
+        <input type="email" id="email" [formField]="formRegister.email">
+
+        <label for="password">Password</label>
+        <input type="password" id="password" [formField]="formRegister.password">
+
+        <label for="password2">Repetir password</label>
+        <input type="password" id="password2" [formField]="formRegister.password2">
+
+        @if (formRegister.password().touched() && formRegister.password().invalid()) {
+            <p>La contraseña debe tener al menos 8 caracteres</p>
+        }
+      </div>
+      <button type="submit" [disabled]="formRegister().invalid()">Registrarse</button>
+      <p>¿Ya tenés cuenta? <a routerLink="/login">Inicia sesión</a></p>
+    </form>
+  </div>
 </section>
